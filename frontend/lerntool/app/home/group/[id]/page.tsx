@@ -1,19 +1,27 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import allgroupInfo from "../../mockdata/allgroupinfo";
 import "./Group.css";
 
 export default function Group({ params }: { params: { id: string } }) {
 
     const [group, setGroup] = useState(allgroupInfo);
+    const [userOwner, setUserOwner] = useState(false);
 
     // Todo
     // Useeffect here to get group information from server ...
 
-    function getGroupInfo(groupid: number) {
+    useEffect(() => {
         // Todo
+        // Check if user is group owner
+        
+        // ToDo
+        // Get current user
+        
+        // ToDo
         // Get group information from server ...
-    }
+    }, []);
+
 
     function createNewAppointment() {
         // Todo
@@ -58,6 +66,7 @@ export default function Group({ params }: { params: { id: string } }) {
                         })}
                     </div>
                 </div>
+                {userOwner ? <a className="btn" href={`/home/managegroup/${params.id}`}>Gruppe verwalten</a> : ""}
             </div>
         </section>
     );

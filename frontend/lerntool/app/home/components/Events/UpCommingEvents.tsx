@@ -11,9 +11,9 @@ export default function UpCommingEvents(params: {events: any[]}) {
                 {params.events.map((event, index) => {
                     return (
                         <div key={index} className="event">
-                            <h3>{event.title}</h3>
-                            <p>{event.date}</p>
-                            <p>{event.location}</p>
+                            <div>{event.title}</div>
+                            <div>{event.date}</div>
+                            <div>{event.location}</div>
                         </div>
                     );
                 })}

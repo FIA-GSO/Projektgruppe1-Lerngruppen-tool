@@ -22,6 +22,12 @@ const grouplists = [
         title: "Group 4",
         topic: "Informatik",
         membercount: 4
+    },
+    {
+        id: 5,
+        title: "Group 5",
+        topic: "SQL Lernen",
+        membercount: 1
     }
 ];
 

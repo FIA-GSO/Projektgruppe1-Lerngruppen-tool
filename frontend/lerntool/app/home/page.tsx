@@ -16,6 +16,8 @@ export default function Home(props:any) {
     useEffect(() => {
         // Todo
         // Get upcomming events of client logic ...
+        
+        // Todo
         // get groups client logic ...
     }, [])
 
@@ -56,8 +58,9 @@ export default function Home(props:any) {
 
     return (
         <div className="mainContainer">
-            <UpCommingEvents events={upCommingEvents} />
             <Groups groups={groups} />
+            <UpCommingEvents events={upCommingEvents} />
+            
         </div>
     );
     

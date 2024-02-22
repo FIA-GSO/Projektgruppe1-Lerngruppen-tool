@@ -6,16 +6,19 @@ export default function Navbar() {
         <nav className="navbar">
             <ul>
                 <li>
-                    <a href="/home">Home</a>
+                    <a className="nav-element" href="/home/grouplist">Gruppen Liste</a>
                 </li>
                 <li>
-                    <a href="/home/grouplist">Gruppen Liste</a>
+                    <a className="nav-element" href="/home/mygroups">Meine Gruppen</a>
                 </li>
                 <li>
-                    <a href="/home/mygroups">Meine Gruppen</a>
+                    <a className="nav-element" href="/home">Home</a>
                 </li>
                 <li>
-                    <a href="/login">Login</a>
+                    <a className="nav-element" href="/home/creategroup">Gruppe erstellen</a>
+                </li>
+                <li>
+                    <a className="nav-element" href="/login">Login</a>
                 </li>
             </ul>
         </nav>
