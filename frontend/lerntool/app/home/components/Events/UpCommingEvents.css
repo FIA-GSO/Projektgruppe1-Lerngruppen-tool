@@ -1,0 +1,21 @@
+.upCommingEvents {
+    margin: 2rem;
+}
+
+h2 {
+    color: #ffffff;
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.event {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1rem;
+}
+
+h3 {
+    padding-left: 1rem;
+}

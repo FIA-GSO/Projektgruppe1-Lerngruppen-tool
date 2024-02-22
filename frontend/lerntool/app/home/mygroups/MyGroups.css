@@ -1,0 +1,36 @@
+.mygrouplist-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-right: 20%;
+}
+.groups {
+    display: block;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.mygrouplist-list {
+    list-style: none;
+    padding: 0;
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    justify-content: center;
+    margin: 1rem;
+}
+.mygrouplist-item {
+    display: flex;
+    margin: 1rem;
+    gap: 1.2rem;
+}
+.btn-to-group {
+    background-color: cornflowerblue;
+    margin: 0.4rem;
+    padding: 0.4rem;
+    border-radius: 10px;
+}

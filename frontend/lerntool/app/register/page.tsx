@@ -114,9 +114,12 @@ export default function Register() {
                 />
                 <label className="errorLabel">{passwordError}</label>
             </div>
-            <br />
+            <label className="">
+                Click here to 
+                <a className="text-blue-600" href="/login"> Login</a>
+            </label>
             <div className={'inputContainer'}>
-                <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Log in'} />
+                <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Register'} />
             </div>
         </div>
     );
