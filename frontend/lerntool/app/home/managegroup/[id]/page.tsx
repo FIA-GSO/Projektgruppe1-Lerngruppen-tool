@@ -1,3 +1,4 @@
+"use client"
 import { use, useEffect, useState } from "react";
 import IGroupObject from "../../Model/IGroupObject";
 import allgroupInfo from "../../mockdata/allgroupinfo";

@@ -14,12 +14,44 @@ export default function Home(props:any) {
     const router = useRouter();
 
     useEffect(() => {
-        // Todo
-        // Get upcomming events of client logic ...
-        
-        // Todo
-        // get groups client logic ...
+        // getUserGroups();
+        getUpCommingEvents();
     }, [])
+
+    async function getUserGroups() {
+        // ToDo
+        // Get user groups logic ...
+        // setGroups(userGroups);
+        const user = JSON.parse(localStorage.getItem('user') ?? '');
+        if (!user || !user.token) {
+            return;
+        }
+        await fetch('http://localhost:3080/groups', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'jwt-token': user.token,
+            },
+        })
+        .then((r) => r.json())
+        .then((r) => {
+            setGroups(r.groups.map((group: any, index: number) => {
+                if (index < 3) {
+                    return group;
+                }
+            }));
+        })
+        .catch((e) => {
+            console.error(e);
+            setGroups(mygroups);
+        });
+    }
+
+    function getUpCommingEvents() {
+        // ToDo
+        // Get upcomming events logic ...
+        // setUpCommingEvents(events);
+    }
 
     // Todo: Implement the logic to verify the user token
     // useEffect(() => {
