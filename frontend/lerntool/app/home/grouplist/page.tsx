@@ -16,6 +16,7 @@ export default function GroupList() {
 
     function getGroups() {
 
+        // ToDo
         // Get the user token from local storage
         // const user = JSON.parse(localStorage.getItem('user') ?? '');
         // if (!user || !user.token) {

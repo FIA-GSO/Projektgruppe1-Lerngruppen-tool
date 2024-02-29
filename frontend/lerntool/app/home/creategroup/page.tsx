@@ -18,6 +18,7 @@ export default function CreateGroup() {
         const groupprivat = document.getElementById('groupprivat') as HTMLInputElement;
         console.log(groupname.value, groupdescription.value, grouptopic.value, groupmembercount.value, groupprivat.checked, groupstartdate.value, groupenddate.value, grouplocation.value);
 
+        // ToDo
         // Get the user token from local storage
         // const user = JSON.parse(localStorage.getItem('user') ?? '');
         // if (!user || !user.token) {
