@@ -22,3 +22,10 @@
     border-radius: 10px;
     cursor: pointer;
 }
+
+.formrow input {
+    color: black;
+}
+.formrow textarea {
+    color: black;
+}
