@@ -51,8 +51,6 @@ export default function CreateGroup() {
             }).catch((e) => {
                 console.error(e);
             });
-
-        
     }
 
     return (
