@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 export default function Home() {
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main className="flex flex-col gap-8 items-center justify-between p-24">
             <Button route="/login" btnName='Login'/>
             <Button route="/register" btnName='Register'/>
         </main>
