@@ -2,13 +2,16 @@
 import { use, useEffect, useState } from "react";
 import IGroupObject from "../../Model/IGroupObject";
 import allgroupInfo from "../../mockdata/allgroupinfo";
+import { useRouter } from "next/navigation";
+import GetUserToken from "../../controller/GetUserToken";
 
 
 
 export default function ManageGroup({ params }: { params: { id: string } }) {
 
-    const [group, setGroup] = useState<IGroupObject>(allgroupInfo);
-
+    const [group, setGroup] = useState<IGroupObject>();
+    const [isowner, setIsOwner] = useState<boolean>(false);
+    const router = useRouter();
     
 
     function EditGroupTitle() {
@@ -18,36 +21,158 @@ export default function ManageGroup({ params }: { params: { id: string } }) {
     function EditGroupDescription() {
         // Todo: Edit Group Description
     }
+
+    function CheckIfUserIsGroupOwner(): boolean {
+        
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return false;
+
+        fetch('http://localhost:3080/verifyownership', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'jwt-token': usertoken,
+            },
+            body: JSON.stringify({
+                groupid: params.id,
+            }),
+        })
+        .then((r) => r.json())
+        .then((r) => {
+            if(r.isOwner) {
+                setIsOwner(true);
+                return true;
+            }
+                
+        })
+        .catch((e) => {
+            console.error(e);
+            // ToDo: need to be remove when backend works
+            setIsOwner(true);
+            return true;
+        });
+        setIsOwner(false);
+        return false;
+    }
     
-    useEffect(() => {
-        function CheckIfUserIsGroupOwner() {
-            // Todo: Check if User is Group Owner
-            // Get current user
-            // User should be able to manage group if he is the owner
-            // check if user is group owner
-            // return true or false/show error message
-        }
-        function getGroupInfo() {
-            // Todo: Get group information from server ...
-            // use params.id to get the group id
-        }
-    }, []);
-    
+    function getGroupInfo() {
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return false;
+
+        fetch('http://localhost:3080/group', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'jwt-token': usertoken,
+            },
+            body: JSON.stringify({
+                groupid: params.id,
+            }),
+        })
+        .then((r) => r.json())
+        .then((r) => {
+            setGroup(r.group);
+        })
+        .catch((e) => {
+            console.error(e);
+            setGroup(allgroupInfo);
+        });
+    }
 
     function AddMember() {
         // Todo: Add Member
     }
 
     function DeleteGroup() {
-        // Todo: Delete Group
-        // Then redirect to home page
+
+        if(!isowner) 
+            return false;
+
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return false;
+
+        fetch('http://localhost:3080/deletegroup', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'jwt-token': usertoken,
+            },
+            body: JSON.stringify({
+                groupid: params.id,
+            }),
+        })
+        .then((r) => r.json())
+        .then((r) => {
+            if (r.success) {
+                router.push("/mygroups");
+            }
+        })
+        .catch((e) => {
+            console.error(e);
+        });
     }
     function RemoveMember(id: number) {
-        // Todo: Remove Member
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return false;
+
+        fetch('http://localhost:3080/removeMember', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'jwt-token': usertoken,
+            },
+            body: JSON.stringify({
+                userid: id,
+            }),
+        })
+        .then((r) => r.json())
+        .then((r) => {
+            if (r.success) {
+                getGroupInfo();
+            }
+        })
+        .catch((e) => {
+            console.error(e);
+        });
     }
-    function ChangeGroupOwner() {
-        // Todo: Change Group Owner
+    function ChangeGroupOwner(id: number) {
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return false;
+
+        fetch('http://localhost:3080/changeowner', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'jwt-token': usertoken,
+            },
+            body: JSON.stringify({
+                userid: id,
+            }),
+        })
+        .then((r) => r.json())
+        .then((r) => {
+            if (r.success) {
+                router.push(`/group/${params.id}`);
+            }
+        })
+        .catch((e) => {
+            console.error(e);
+        });
     }
+
+    useEffect(() => {
+
+        if (CheckIfUserIsGroupOwner())
+            router.push("/home");
+
+        getGroupInfo();
+
+    }, []);
 
     return (
         <div>
@@ -65,13 +190,13 @@ export default function ManageGroup({ params }: { params: { id: string } }) {
                 <div className="memberlist">
                     <h2>Members</h2>
                     <div className="members">
-                        {group.members.map((member: any) => {
+                        {group!.members.map((member: any) => {
                             return (
                                 <div className="member" key={member.id}>
                                     <h3>{member.name}</h3>
                                     <p>Role: {member.role}</p>
                                     <button onClick={() => RemoveMember(member.id)}>Remove Member</button>
-                                    <button onClick={ChangeGroupOwner}>Promote to Owner</button>
+                                    <button onClick={() => ChangeGroupOwner(member.id)}>Promote to Owner</button>
                                 </div>
                             );
                         })}
