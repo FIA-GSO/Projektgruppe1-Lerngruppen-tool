@@ -38,19 +38,11 @@ export default function Home(props:any) {
         })
         .then((r) => r.json())
         .then((r) => {
-            setGroups(r.groups.map((group: any, index: number) => {
-                if (index < 3) {
-                    return group;
-                }
-            }));
+            setGroups(r.groups);
         })
         .catch((e) => {
             console.error(e);
-            setGroups(mygroupsMock.filter((group: IGroupsOfUser | undefined, index: number) => {
-                if (group && index < 3) {
-                    return true;
-                }
-            }));
+            setGroups(mygroupsMock);
         });
     }
 
