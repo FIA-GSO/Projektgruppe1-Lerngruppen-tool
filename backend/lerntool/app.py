@@ -11,18 +11,18 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-with app.app_context():
-    db.create_all()
+#Klassendefinitionen
 
-class StudyGroup(db.Model):
+class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    min_participants = db.Column(db.Integer, nullable=False)
-    max_participants = db.Column(db.Integer, nullable=False)
-    meeting_time = db.Column(db.DateTime, nullable=False)
-    duration = db.Column(db.DateTime, nullable=False) 
-    location = db.Column(db.String(120), nullable=False)
-    learning_method = db.Column(db.String(120), nullable=False)
-    year_restriction = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(128), nullable=False)
+    groupdatestart = db.Column(db.Date, nullable=False)
+    groupdateend = db.Column(db.Date, nullable=False)
+    maxmembers = db.Column(db.Integer, nullable=False)
+    location = db.Column(db.String(128), nullable=False)
+    description = db.Column(db.Text, default='')
+    learnmethod = db.Column(db.String(128), default='')
+    thisyearonly = db.Column(db.Boolean, default=False)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,24 +33,60 @@ class User(db.Model):
     class_no = db.Column(db.String(5), nullable=False)
     year = db.Column(db.Integer, nullable=False)
 
-@app.route('/groups', methods=['POST'])
+class Membership(db.Model):
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'), primary_key=True)
+    is_owner = db.Column(db.Boolean, default=False)
+    user = db.relationship('User', back_populates='groups')
+    group = db.relationship('Group', back_populates='members')
+
+Group.members = db.relationship('Membership', back_populates='group')
+User.groups = db.relationship('Membership', back_populates='user')
+
+#Programmierung für Gruppen basierte Querys
+
+@app.route('/creategroup', methods=['POST'])
 def create_group():
-    data = request.json
+    data = request.get_json()
+    try:
+        new_group = Group(
+            name=data['name'],
+            groupdatestart=datetime.strptime(data['groupdatestart'], '%Y-%m-%d').date(),
+            groupdateend=datetime.strptime(data['groupdateend'], '%Y-%m-%d').date(),
+            maxmembers=data['maxmembers'],
+            location=data['location'],
+            description=data.get('description', ''),
+            learnmethod=data.get('learnmethod', ''),
+            thisyearonly=data['thisyearonly']
+        )
+        db.session.add(new_group)
+        db.session.commit()
+        
+        return jsonify({"Erfolgreich, groupid": new_group.id}), 201
+    except Exception as e:
+        return jsonify({"error": "Creating group failed", "message": str(e)}), 500
+
+# get all groups from database http://127.0.0.1:5000/getGroups
     
-    new_group = StudyGroup(
-        min_participants=data['min_participants'],
-        max_participants=data['max_participants'],
-        meeting_time=meeting_time,
-        duration=duration,
-        location=data['location'],
-        learning_method=data['learning_method'],
-        year_restriction=data['year_restriction']
-    )
-    
-    db.session.add(new_group)
-    db.session.commit()
-    
-    return jsonify({"message": "Study group created successfully", "id": new_group.id}), 201
+@app.route('/group', methods=['GET'])
+def get_groups():
+    all_groups = Group.query.all()
+    groups_list = []
+    for group in all_groups:
+        groups_list.append({
+            "id": group.id,
+            "name": group.name,
+            "groupdatestart": group.groupdatestart.strftime('%Y-%m-%d'),
+            "groupdateend": group.groupdateend.strftime('%Y-%m-%d'),
+            "maxmembers": group.maxmembers,
+            "location": group.location,
+            "description": group.description,
+            "learnmethod": group.learnmethod,
+            "thisyearonly": group.thisyearonly
+        })
+    return jsonify(groups_list)
+
+#Programmierung für User basierte Querys
 
 @app.route('/register', methods=['POST'])
 def create_user():
@@ -83,3 +119,9 @@ def get_user():
         return True
     else:
         return jsonify({'message': 'Email or Password incorrect'}), 400
+
+with app.app_context():
+    db.create_all()
+    
+if __name__ == '__main__':
+    app.run(debug=True)
