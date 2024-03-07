@@ -1,6 +1,7 @@
 "use client"
 import { useRouter } from "next/navigation";
 import "./Creategroup.css";
+import GetUserToken from "../controller/GetUserToken";
 
 export default function CreateGroup() {
 
@@ -18,19 +19,16 @@ export default function CreateGroup() {
         const groupprivat = document.getElementById('groupprivat') as HTMLInputElement;
         console.log(groupname.value, groupdescription.value, grouptopic.value, groupmembercount.value, groupprivat.checked, groupstartdate.value, groupenddate.value, grouplocation.value);
 
-        // ToDo
-        // Get the user token from local storage
-        // const user = JSON.parse(localStorage.getItem('user') ?? '');
-        // if (!user || !user.token) {
-        //     return;
-        // }
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return;
 
         // Send the group data to the server
         fetch('http://localhost:3080/creategroup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'usertoken': "user.token",
+                    'usertoken': usertoken,
                 },
                 body: JSON.stringify({
                     name: groupname.value,

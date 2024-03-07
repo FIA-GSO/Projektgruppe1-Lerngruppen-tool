@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import allgroupInfo from "../../mockdata/allgroupinfo";
 import "./Group.css";
+import GetUserToken from "../../controller/GetUserToken";
 
 export default function Group({ params }: { params: { id: string } }) {
 
@@ -12,18 +13,41 @@ export default function Group({ params }: { params: { id: string } }) {
     // Useeffect here to get group information from server ...
 
     useEffect(() => {
-        // Todo
-        // Check if user is group owner
-        
-        // ToDo
-        // Get current user
+
+        CheckGroupOwnership();
         
         // ToDo
         // Get group information from server ...
     }, []);
 
+    function CheckGroupOwnership() {
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return;
+
+        fetch('http://localhost:3080/verifyownership', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'jwt-token': usertoken,
+            },
+            body: JSON.stringify({
+                groupid: params.id,
+            }),
+        })
+        .then((r) => r.json())
+        .then((r) => {
+            if(r.isOwner)
+                setUserOwner(true);
+        })
+        .catch((e) => {
+            console.error(e);
+        });
+        
+    }
 
     function createNewAppointment() {
+        GetUserToken();
         // Todo
         // Create a new appointment client logic ...
     }

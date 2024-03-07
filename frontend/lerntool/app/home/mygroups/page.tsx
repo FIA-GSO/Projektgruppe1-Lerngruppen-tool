@@ -4,6 +4,7 @@ import mygroupsMock from "../mockdata/mygroups";
 import "./MyGroups.css";
 import { useRouter } from "next/navigation";
 import IGroupsOfUser from "../Model/IGroupsOfUser";
+import GetUserToken from "../controller/GetUserToken";
 
 export default function MyGroups() {
     
@@ -15,18 +16,16 @@ export default function MyGroups() {
     }, []);
 
     function getUserGroups() {
-        // ToDo
-        // Get the user token from local storage
-        // const user = JSON.parse(localStorage.getItem('user') ?? '');
-        // if (!user || !user.token) {
-        //     return;
-        // }
+        
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return;
 
         fetch('http://localhost:3080/groupsofuser', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'jwt-token': "user.token",
+                'jwt-token': usertoken,
             },
         })
         .then((r) => r.json())
@@ -54,18 +53,15 @@ export default function MyGroups() {
 
     function leaveGroup(groupid: number) {
 
-        // ToDo
-        // Get the user token from local storage
-        // const user = JSON.parse(localStorage.getItem('user') ?? '');
-        // if (!user || !user.token) {
-        //     return;
-        // }
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return;
         
         fetch('http://localhost:3080/leavegroup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'jwt-token': "user.token",
+                'jwt-token': usertoken,
             },
             body: JSON.stringify({
                 groupid: groupid,
