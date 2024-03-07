@@ -4,6 +4,7 @@ import grouplist from "../mockdata/grouplists";
 import "./Grouplist.css";
 import { useRouter } from "next/navigation";
 import IGroupList from "../Model/IGroupList";
+import GetUserToken from "../controller/GetUserToken";
 
 export default function GroupList() {
 
@@ -16,18 +17,15 @@ export default function GroupList() {
 
     function getGroups() {
 
-        // ToDo
-        // Get the user token from local storage
-        // const user = JSON.parse(localStorage.getItem('user') ?? '');
-        // if (!user || !user.token) {
-        //     return;
-        // }
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return;
 
         fetch('http://localhost:3080/groups', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'jwt-token': "user.token",
+                'jwt-token': usertoken,
             },
         })
         .then((r) => r.json())
@@ -42,11 +40,16 @@ export default function GroupList() {
     }
 
     function joinGroup(groupid: number) {
+
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return;
+
         fetch('http://localhost:3080/joingroup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'usertoken': "user.token",
+                'usertoken': usertoken,
             },
             body: JSON.stringify({
                 groupid: groupid,
