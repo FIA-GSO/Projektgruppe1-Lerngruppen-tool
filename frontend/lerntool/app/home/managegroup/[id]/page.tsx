@@ -1,5 +1,5 @@
 "use client"
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import IGroupObject from "../../Model/IGroupObject";
 import allgroupInfo from "../../mockdata/allgroupinfo";
 import { useRouter } from "next/navigation";
@@ -190,7 +190,7 @@ export default function ManageGroup({ params }: { params: { id: string } }) {
                 <div className="memberlist">
                     <h2>Members</h2>
                     <div className="members">
-                        {group!.members.map((member: any) => {
+                        {group?.members.map((member: any) => {
                             return (
                                 <div className="member" key={member.id}>
                                     <h3>{member.name}</h3>
