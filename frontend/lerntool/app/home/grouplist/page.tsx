@@ -74,9 +74,9 @@ export default function GroupList() {
                         {groups?.map((group) => {
                             return (
                                 <li className="grouplist-item" key={group.id}>
-                                    <div>Name: {group.name}</div>
-                                    <div>Thema: {group.topic}</div>
-                                    <div>Mitglieder zahl: {group.membercount}</div>
+                                    <h1>Name: {group.name}</h1>
+                                    <h3>Thema: {group.topic}</h3>
+                                    <p className='member-count'>Mitglieder zahl: {group.membercount}</p>
                                     <button className="btn-to-group" onClick={() => joinGroup(group.id)}>Join group</button>
                                 </li>
                             );

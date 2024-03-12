@@ -4,7 +4,7 @@ Here are the most of the To Do's for the frontend part:
 
 ## Home /app/home
 
-* [ ]  Style Navbar in /app/home/components/Navbar
+* [ ]  Style Footer in /app/home/components/Footer
 * [ ]  Style the Home
 * [ ]  Mobile design
 

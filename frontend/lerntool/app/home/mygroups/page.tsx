@@ -96,13 +96,15 @@ function GroupList(params: { groups: IGroupsOfUser[], owner: boolean, leaveGroup
                 {params.groups.map((group) => {
                     return (
                         <li className="mygrouplist-item" key={group.id}>
-                            <div>{group.name}</div>
-                            <div>Thema: {group.topic}</div>
+                            <h1>{group.name}</h1>
+                            <h3>Thema: {group.topic}</h3>
+                            <div className="group-action-buttons">
                             <a className="btn-to-group" href={`/home/group/${group.id}`}>Zu Gruppe</a>
                             {params.owner 
                                 ? <button className="btn-to-group" onClick={() => router.push(`/home/managegroup/${group.id}`)} >Verwalten</button>
                                 : <button className="btn-to-group" onClick={() => params.leaveGroup(group.id)} >Gruppe Verlassen</button>
                             }
+                            </div>
                         </li>
                     );
                 })}

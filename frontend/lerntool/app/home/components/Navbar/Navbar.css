@@ -1,16 +1,28 @@
 .navbar {
-    padding: 1rem;
-    padding-top: 0.2rem;
-    padding-bottom: 0.3rem;
+    display: block;
     border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
 }
 
-ul {
+.navbar-list {
     display: flex;
-    gap: 1.2rem;
-    justify-content: center;
-    margin: 1rem;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem 0.3rem;
 }
+.navbar-list-item{
+    padding: 0.5rem;
+    text-align: center;
+    background-color: rgba(104, 104, 104, 1);
+
+}
+
+.navbar-list-item a{
+        margin: 0;
+        padding: 0;
+}
+
 ul li {
     background-color: rgba(104, 104, 104, 0.382);
     padding: 0.2rem;
@@ -24,4 +36,14 @@ ul li {
     text-decoration: none;
     border-radius: 8px;
 
+}
+
+@media only screen and (min-width: 769px) {
+    .navbar-list{
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        align-items: center;
+        padding: 0.5rem 0.3rem;
+    }
 }

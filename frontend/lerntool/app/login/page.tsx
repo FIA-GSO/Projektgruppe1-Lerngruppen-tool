@@ -134,7 +134,7 @@ export default function Login() {
                 />
                 <label className="errorLabel">{passwordError}</label>
             </div>
-            <label className="">
+            <label className="register-label">
                 Click here to 
                 <a className='text-blue-600' href="/register"> Register</a>
             </label>

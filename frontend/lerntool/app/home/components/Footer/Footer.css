@@ -1,0 +1,21 @@
+.footer {
+    background-color: #333;
+    color: #fff;
+    margin: auto;
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+
+}
+
+.footer-link {
+    padding: 0 1rem;
+    color: #00aaff;
+}
+
+.footer-bottom {
+    background-color: #111;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
