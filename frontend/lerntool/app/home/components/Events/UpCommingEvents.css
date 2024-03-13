@@ -1,0 +1,28 @@
+.upCommingEvents {
+    margin: 2rem;
+}
+
+h2 {
+    color: #ffffff;
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.event {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+.events {
+    height: 40vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+h3 {
+    padding-left: 1rem;
+}
