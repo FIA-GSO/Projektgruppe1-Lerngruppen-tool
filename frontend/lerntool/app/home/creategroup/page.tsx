@@ -37,7 +37,6 @@ export default function CreateGroup() {
                 groupstartdate: groupstartdate.value,
                 groupenddate: groupenddate.value,
                 maxmember: groupmembercount.value,
-                location: grouplocation.value,
                 thisyearonly: groupprivat.checked,
             }),
         })
@@ -80,11 +79,6 @@ export default function CreateGroup() {
                     <label htmlFor="groupenddate">Enddatum: </label>
                     <br/>
                     <input type="date" id="groupenddate"/>
-                </div>
-                <div className="formrow">
-                    <label htmlFor="grouplocation">Ort: </label>
-                    <br/>
-                    <input type="text" id="grouplocation"/>
                 </div>
                 <div className="formrow">
                     <label htmlFor="groupmembercount">Maximale Schüler: </label>
