@@ -87,7 +87,7 @@ export default function Register() {
                 firstname: firstname,
                 lastname: lastname,
                 email: email,
-                class_no: class_no,
+                klasse: class_no,
                 year: year,
                 password: password,
             }),
