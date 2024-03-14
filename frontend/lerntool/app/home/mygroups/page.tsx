@@ -6,8 +6,12 @@ import { useRouter } from "next/navigation";
 import IGroupsOfUser from "../Model/IGroupsOfUser";
 import GetUserToken from "../controller/GetUserToken";
 
+// Define the MyGroups component.
+
 export default function MyGroups() {
-    
+
+    // State hooks for managing the groups where the user is an owner and where they are not.
+
     const [ mygroups, setMyGroups ] = useState<IGroupsOfUser[]>();
     const [ othergroups, setOtherGroups ] = useState<IGroupsOfUser[]>();
 
@@ -20,6 +24,8 @@ export default function MyGroups() {
         let usertoken = GetUserToken();
         if (!usertoken) 
             return;
+
+        // Perform a GET request to fetch the groups of the user.
 
         await fetch('http://localhost:3080/groupsofuser', {
             method: 'GET',
@@ -56,7 +62,9 @@ export default function MyGroups() {
         let usertoken = GetUserToken();
         if (!usertoken) 
             return;
-        
+
+        // Perform a POST request to leave a group, including the group ID in the request body.
+
         fetch('http://localhost:3080/leavegroup', {
             method: 'POST',
             headers: {
@@ -88,6 +96,8 @@ export default function MyGroups() {
 function GroupList(params: { groups: IGroupsOfUser[], owner: boolean, leaveGroup: (groupid: number) => void }) {
 
     const router = useRouter();
+    
+    // Render the component UI.
 
     return (
         <div className="groups">

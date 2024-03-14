@@ -6,6 +6,7 @@ import {useRouter} from "next/navigation";
 import GetUserToken from "../../controller/GetUserToken";
 import "./ManageGroup.css";
 
+// Define the ManageGroup component with props structured to receive a group ID.
 
 export default function ManageGroup({params}: { params: { id: string } }) {
 
@@ -15,11 +16,9 @@ export default function ManageGroup({params}: { params: { id: string } }) {
 
 
     function EditGroupTitle() {
-        // Todo: Edit Group Title
     }
 
     function EditGroupDescription() {
-        // Todo: Edit Group Description
     }
 
     function CheckIfUserIsGroupOwner(): boolean {
@@ -82,7 +81,6 @@ export default function ManageGroup({params}: { params: { id: string } }) {
     }
 
     function AddMember() {
-        // Todo: Add Member
     }
 
     function DeleteGroup() {
