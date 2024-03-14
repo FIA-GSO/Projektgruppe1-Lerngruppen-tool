@@ -170,7 +170,7 @@ export default function Register() {
                 />
                 <label className="errorLabel">{passwordError}</label>
             </div>
-            <label className="">
+            <label className="login-label">
                 Click here to 
                 <a className="text-blue-600" href="/login"> Login</a>
             </label>

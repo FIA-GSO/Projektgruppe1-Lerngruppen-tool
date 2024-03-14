@@ -53,10 +53,12 @@
     color: red;
     font-size: 12px;
   }
-  
+  .register-label{
+    padding: 1rem 0;
+  }
   .inputBox {
     height: 48px;
-    width: 400px;
+    min-width: 300px;
     font-size: large;
     border-radius: 8px;
     border: 1px solid grey;

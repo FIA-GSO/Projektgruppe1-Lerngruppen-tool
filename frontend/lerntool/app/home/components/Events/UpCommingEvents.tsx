@@ -1,12 +1,11 @@
 import "./UpCommingEvents.css";
 
 
-export default function UpCommingEvents(params: {events: any[]}) {
-    
+export default function UpCommingEvents(params: { events: any[] }) {
 
     return (
-        <div className="upCommingEvents">
-            <h2>Upcoming Events</h2>
+        <div className="upComingEvents">
+            <h2 id="events-header">Upcoming Events</h2>
             <div className="events">
                 {params.events.map((event, index) => {
                     return (
