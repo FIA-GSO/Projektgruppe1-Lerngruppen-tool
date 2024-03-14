@@ -9,16 +9,37 @@ export default function Group({ params }: { params: { id: string } }) {
     const [group, setGroup] = useState(allgroupInfo);
     const [userOwner, setUserOwner] = useState(false);
 
-    // Todo
-    // Useeffect here to get group information from server ...
-
     useEffect(() => {
 
         CheckGroupOwnership();
+        getGroupInfo();
         
-        // ToDo
-        // Get group information from server ...
     }, []);
+
+    function getGroupInfo() {
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return false;
+
+        fetch('http://localhost:3080/group', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'jwt-token': usertoken,
+            },
+            body: JSON.stringify({
+                groupid: params.id,
+            }),
+        })
+        .then((r) => r.json())
+        .then((r) => {
+            setGroup(r.group);
+        })
+        .catch((e) => {
+            console.error(e);
+            setGroup(allgroupInfo);
+        });
+    }
 
     function CheckGroupOwnership() {
         let usertoken = GetUserToken();

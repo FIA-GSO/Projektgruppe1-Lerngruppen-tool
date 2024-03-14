@@ -107,7 +107,6 @@ export default function Home(props:any) {
         <div className="mainContainer">
             <Groups groups={groups} />
             <UpCommingEvents events={upCommingEvents} />
-            
         </div>
     );
     

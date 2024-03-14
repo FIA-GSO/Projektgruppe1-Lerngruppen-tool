@@ -15,13 +15,13 @@ export default function MyGroups() {
         getUserGroups();
     }, []);
 
-    function getUserGroups() {
+    async function getUserGroups() {
         
         let usertoken = GetUserToken();
         if (!usertoken) 
             return;
 
-        fetch('http://localhost:3080/groupsofuser', {
+        await fetch('http://localhost:3080/groupsofuser', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
