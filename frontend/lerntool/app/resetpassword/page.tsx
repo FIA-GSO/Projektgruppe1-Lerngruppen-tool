@@ -1,5 +1,7 @@
 import { useRouter } from "next/navigation";
 
+// Define the ResetPassword functional component.
+
 export default function Resetpassword() {
 
     const router = useRouter();
@@ -23,6 +25,8 @@ export default function Resetpassword() {
             console.error(e);
         });
     }
+
+    // Render the component's UI.
 
     return (
         <div>

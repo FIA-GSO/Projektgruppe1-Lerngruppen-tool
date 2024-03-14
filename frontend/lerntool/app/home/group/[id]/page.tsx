@@ -5,6 +5,8 @@ import "./Group.css";
 import GetUserToken from "../../controller/GetUserToken";
 import { useRouter } from "next/navigation";
 
+// Define the Group component accepting `params` as props.
+
 export default function Group({ params }: { params: { id: string } }) {
 
     const [group, setGroup] = useState(allgroupInfo);
@@ -43,11 +45,14 @@ export default function Group({ params }: { params: { id: string } }) {
             setGroup(allgroupInfo);
         });
     }
+    // Function to verify if the current user is the owner of the group.
 
     function CheckGroupOwnership() {
         let usertoken = GetUserToken();
         if (!usertoken) 
             return;
+
+        // Use fetch API to verify group ownership, including JWT token in the headers.
 
         fetch('http://localhost:3080/verifyownership', {
             method: 'GET',
@@ -69,11 +74,13 @@ export default function Group({ params }: { params: { id: string } }) {
         });
         
     }
+    // Function to navigate to the new appointment creation page.
 
     function createNewAppointment() {
         GetUserToken();
         router.push(`/home/newevent?groupid=${params.id}`);
     }
+    // Render the component UI.
 
     return (
         <section className="group-container">

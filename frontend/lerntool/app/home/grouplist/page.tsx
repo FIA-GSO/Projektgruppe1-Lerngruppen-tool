@@ -20,6 +20,8 @@ export default function GroupList() {
         let usertoken = GetUserToken();
         if (!usertoken) 
             return;
+        
+        // Perform a GET request to fetch groups, including the JWT token in the request headers for authentication.
 
         fetch('http://localhost:3080/groups', {
             method: 'GET',
@@ -45,6 +47,8 @@ export default function GroupList() {
         if (!usertoken) 
             return;
 
+        // Perform a POST request to join a group, including the user token and group ID in the request.
+
         fetch('http://localhost:3080/joingroup', {
             method: 'POST',
             headers: {
@@ -65,6 +69,8 @@ export default function GroupList() {
         });
     }
     
+    // Render the component UI.
+
     return (
         <section className="grouplist-container">
             <div className="groups">

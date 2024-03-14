@@ -19,7 +19,7 @@ export default function Home() {
         } else {
             router.push('/login');
         }
-    }, []);
+    }, []); // The empty dependency array ensures this effect runs only once on mount.
 
     function ValidToken(token: string) {
         fetch('http://localhost:3080/verify', {
