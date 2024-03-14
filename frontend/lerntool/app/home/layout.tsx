@@ -10,7 +10,7 @@ export default function HomeLayout({
       <section>
         <Navbar />
         {children}
-          <Footer />
+        <Footer />
       </section>
     )
   }

@@ -170,6 +170,19 @@ export default function Register() {
                 />
                 <label className="errorLabel">{passwordError}</label>
             </div>
+            <br />
+            <div className={'inputContainer'}>
+                <div className="datenschutzcontainer">
+                    <label className="datenschutz">Ich stimme den <a href="home/datenschutz">Datenschutzlinien</a> zu</label>
+                    <input
+                        value=""
+                        type='checkbox'
+                        
+                    />
+                </div>
+                
+                <label className="errorLabel">{passwordError}</label>
+            </div>
             <label className="login-label">
                 Click here to 
                 <a className="text-blue-600" href="/login"> Login</a>

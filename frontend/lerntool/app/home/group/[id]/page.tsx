@@ -3,11 +3,14 @@ import { useEffect, useState } from "react";
 import allgroupInfo from "../../mockdata/allgroupinfo";
 import "./Group.css";
 import GetUserToken from "../../controller/GetUserToken";
+import { useRouter } from "next/navigation";
 
 export default function Group({ params }: { params: { id: string } }) {
 
     const [group, setGroup] = useState(allgroupInfo);
     const [userOwner, setUserOwner] = useState(false);
+
+    const router = useRouter();
 
     useEffect(() => {
 
@@ -69,8 +72,7 @@ export default function Group({ params }: { params: { id: string } }) {
 
     function createNewAppointment() {
         GetUserToken();
-        // Todo
-        // Create a new appointment client logic ...
+        router.push(`/home/newevent?groupid=${params.id}`);
     }
 
     return (
