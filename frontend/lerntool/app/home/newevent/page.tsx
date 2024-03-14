@@ -9,7 +9,8 @@ export default function NewEvent() {
     const searchParams = useSearchParams()
 
 
-    function createGroup() {
+    async function addevent() {
+        
         // Get the group data from the form
         const topic = document.getElementById('topic') as HTMLInputElement;
         const date = document.getElementById('date') as HTMLInputElement;
@@ -19,19 +20,17 @@ export default function NewEvent() {
         const street = document.getElementById('street') as HTMLInputElement;
         const groupid = searchParams.get('groupid');
 
-        if(groupid === null)
-            router.push('/home');
+        // if(groupid === undefined || groupid === null || groupid === "")
+        //     router.push('/home');
     
-        console.log(topic.value, date.value, duration.value, street.value, location.value, postcode.value);
+        console.log(groupid, topic.value, date.value, duration.value, street.value, location.value, postcode.value);
 
         let usertoken = GetUserToken();
         if (!usertoken)
             return;
 
-
-
         // Send the group data to the server
-        fetch('http://localhost:3080/newevent', {
+        await fetch('http://localhost:3080/newevent', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,18 +49,19 @@ export default function NewEvent() {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success === true) {
-                    router.push(`/group/${groupid}`);
+                    router.push(`/home/group/${groupid}`);
                 }
             }).catch((e) => {
                 console.error(e);
-                router.push(`/group/${groupid}`);
+                router.push(`/home/group/${groupid}`);
             });
+            
     }
 
     return (
         <div className="container">
             <h1 className="header">Termin Erstellen:</h1>
-            <form className="createeventform">
+            <div className="createeventform">
                 <div className="formrow">
                     <label htmlFor="topic">Thema: </label>
                     <br/>
@@ -93,9 +93,9 @@ export default function NewEvent() {
                     <input type="text" id="street"/>
                 </div>
                 <div className="formrow">
-                    <button className="submitbutton" type="submit" onClick={createGroup} value="Einstellen">Einstellen </button>
+                    <button className="submitbutton" onClick={addevent} value="Einstellen">Einstellen </button>
                 </div>
-            </form>
+            </div>
         </div>
     );
 
