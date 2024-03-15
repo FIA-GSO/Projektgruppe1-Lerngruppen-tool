@@ -23,7 +23,7 @@ export default function GroupList() {
         
         // Perform a GET request to fetch groups, including the JWT token in the request headers for authentication.
 
-        fetch('http://localhost:3080/groups', {
+        fetch('http://127.0.0.1:8000/groups', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export default function GroupList() {
 
         // Perform a POST request to join a group, including the user token and group ID in the request.
 
-        fetch('http://localhost:3080/joingroup', {
+        fetch('http://127.0.0.1:8000/joingroup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

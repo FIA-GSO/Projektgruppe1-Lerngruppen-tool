@@ -27,7 +27,7 @@ export default function MyGroups() {
 
         // Perform a GET request to fetch the groups of the user.
 
-        await fetch('http://localhost:3080/groupsofuser', {
+        await fetch('http://127.0.0.1:8000/groupsofuser', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export default function MyGroups() {
 
         // Perform a POST request to leave a group, including the group ID in the request body.
 
-        fetch('http://localhost:3080/leavegroup', {
+        fetch('http://127.0.0.1:8000/leavegroup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

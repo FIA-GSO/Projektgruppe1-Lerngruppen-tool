@@ -25,7 +25,7 @@ export default function ManageGroup({params}: { params: { id: string } }) {
         if (!usertoken)
             return false;
 
-        fetch(`http://localhost:3080/verifyownership/${params.id}`, {
+        fetch(`http://127.0.0.1:8000/verifyownership/${params.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export default function ManageGroup({params}: { params: { id: string } }) {
         if (!usertoken)
             return false;
 
-        fetch('http://localhost:3080/group', {
+        fetch('http://127.0.0.1:8000/group', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ export default function ManageGroup({params}: { params: { id: string } }) {
         if (!usertoken)
             return false;
 
-        fetch('http://localhost:3080/addmember', {
+        fetch('http://127.0.0.1:8000/addmember', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ export default function ManageGroup({params}: { params: { id: string } }) {
         if (!usertoken)
             return false;
 
-        fetch('http://localhost:3080/deletegroup', {
+        fetch('http://127.0.0.1:8000/deletegroup', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -149,7 +149,7 @@ export default function ManageGroup({params}: { params: { id: string } }) {
         if (!usertoken)
             return false;
 
-        fetch('http://localhost:3080/removeMember', {
+        fetch('http://127.0.0.1:8000/removeMember', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -176,7 +176,7 @@ export default function ManageGroup({params}: { params: { id: string } }) {
         if (!usertoken)
             return false;
 
-        fetch('http://localhost:3080/changeowner', {
+        fetch('http://127.0.0.1:8000/changeowner', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

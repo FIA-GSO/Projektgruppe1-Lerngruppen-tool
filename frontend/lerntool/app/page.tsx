@@ -22,7 +22,7 @@ export default function Home() {
     }, []); // The empty dependency array ensures this effect runs only once on mount.
 
     function ValidToken(token: string) {
-        fetch('http://localhost:3080/verify', {
+        fetch('http://127.0.0.1:8000/verify', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

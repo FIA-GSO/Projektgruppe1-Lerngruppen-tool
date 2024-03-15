@@ -29,7 +29,7 @@ export default function Home(props:any) {
         if (!usertoken) 
             return;
         
-        await fetch('http://localhost:3080/groups', {
+        await fetch('http://127.0.0.1:8000/groups', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ export default function Home(props:any) {
         if (!usertoken) 
             return;
         
-        await fetch('http://localhost:3080/getuserevents', {
+        await fetch('http://127.0.0.1:8000/getuserevents', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ export default function Home(props:any) {
             return false;
       
         // If the token exists, verify it with the auth server to see if it is valid
-        fetch('http://localhost:3080/verify', {
+        fetch('http://127.0.0.1:8000/verify', {
             method: 'POST',
             headers: {
                 'jwt-token': usertoken,

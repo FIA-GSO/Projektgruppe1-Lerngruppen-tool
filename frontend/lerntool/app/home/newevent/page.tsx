@@ -30,7 +30,7 @@ export default function NewEvent() {
             return;
 
         // Send the group data to the server
-        await fetch('http://localhost:3080/newevent', {
+        await fetch('http://127.0.0.1:8000/newevent', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

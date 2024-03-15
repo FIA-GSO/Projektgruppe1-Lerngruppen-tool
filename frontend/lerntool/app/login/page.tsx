@@ -75,7 +75,7 @@ export default function Login() {
 
     // Call the server API to check if the given email ID already exists
     // const checkAccountExists = (callback) => {
-    //     fetch('http://localhost:3080/check-account', {
+    //     fetch('http://127.0.0.1:8000/check-account', {
     //         method: 'POST',
     //         headers: {
     //             'Content-Type': 'application/json',

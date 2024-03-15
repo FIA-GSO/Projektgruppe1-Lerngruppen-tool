@@ -29,7 +29,7 @@ export default function Group({ params }: { params: { id: string } }) {
         if (!usertoken) 
             return false;
 
-        fetch('http://localhost:3080/group', {
+        fetch('http://127.0.0.1:8000/group', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export default function Group({ params }: { params: { id: string } }) {
 
         // Use fetch API to verify group ownership, including JWT token in the headers.
 
-        fetch(`http://localhost:3080/verifyownership/${params.id}`, {
+        fetch(`http://127.0.0.1:8000/verifyownership/${params.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

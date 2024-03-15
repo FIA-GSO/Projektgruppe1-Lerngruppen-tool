@@ -74,11 +74,19 @@ export default function Register() {
             return;
         }
 
+        async function hashPassword(password: string): Promise<string> {
+            const saltRounds = 10; // The cost factor controls how much time is needed to calculate a single BCrypt hash. The higher the cost factor, the more hashing rounds are done. Increasing the cost factor by 1 doubles the necessary time. The more time is necessary, the more difficult is brute-forcing.
+            const hash = await bcrypt.hash(password, saltRounds);
+            return hash;
+        }
+        
         registerUser();
     }
 
     async function registerUser() {
-        await fetch('http://localhost:5173/register', {
+
+
+        await fetch('http://127.0.0.1:8000/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
