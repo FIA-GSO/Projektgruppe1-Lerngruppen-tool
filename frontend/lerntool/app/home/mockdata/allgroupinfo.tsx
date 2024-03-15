@@ -6,35 +6,39 @@ const allgroupInfo: IGroupInfo = {
     info : {
         name: "Group 1",
         topic: "Math",
-        description: "This is a group for math",
-        membercount: 5
+        description: "This is a group for math"
     },
     appointments: appointments,
     members: [
         {
             id: "1",
-            name: "John",
-            role: "Admin"
+            firstname: "John",
+            lastname: "John",
+            admin: true
         },
         {
             id: "2",
-            name: "Doe",
-            role: "User"
+            firstname: "Doe",
+            lastname: "John",
+            admin: false
         },
         {
             id: "3",
-            name: "Jane",
-            role: "User"
+            firstname: "Jane",
+            lastname: "John",
+            admin: false
         },
         {
             id: "4",
-            name: "Doe",
-            role: "User"
+            firstname: "Doe",
+            lastname: "John",
+            admin: false
         },
         {
             id: "5",
-            name: "Doe",
-            role: "User"
+            firstname: "Doe",
+            lastname: "John",
+            admin: false
         }
     ]
 

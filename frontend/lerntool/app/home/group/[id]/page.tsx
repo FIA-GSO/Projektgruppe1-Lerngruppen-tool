@@ -4,6 +4,9 @@ import allgroupInfo from "../../mockdata/allgroupinfo";
 import "./Group.css";
 import GetUserToken from "../../controller/GetUserToken";
 import { useRouter } from "next/navigation";
+import IGroupObject from "../../Model/IGroupObject";
+import IMember from "../../Model/IMember";
+import IAppointment from "../../Model/IAppointment";
 
 // Define the Group component accepting `params` as props.
 
@@ -89,16 +92,16 @@ export default function Group({ params }: { params: { id: string } }) {
                     <h2>{group.info.name}</h2>
                     <p>Description: {group.info.description}</p>
                     <p>Topic: {group.info.topic}</p>
-                    <p>Members: {group.info.membercount}</p>
+                    <p>Members: {group.members.length}</p>
                 </div>
                 <div className="group-members">
                     <h2>Members</h2>
                     <div className="members">
-                        {group.members.map((member: any) => {
+                        {group.members.map((member: IMember) => {
                             return (
                                 <div className="member" key={member.id}>
-                                    <h3>{member.name}</h3>
-                                    <p>Role: {member.role}</p>
+                                    <h3>{member.firstname} {member.lastname}</h3>
+                                    <p>Role: {member.admin ? "Admin" : "Schüler"}</p>
                                 </div>
                             );
                         })}
@@ -107,12 +110,13 @@ export default function Group({ params }: { params: { id: string } }) {
                 <div className="group-appointments">
                     <h2>Appointments</h2>
                     <div className="appointments">
-                        {group.appointments.map((appointment: any) => {
+                        {group.appointments.map((appointment: IAppointment) => {
                             return (
                                 <div className="appointment" key={appointment.id}>
-                                    <h3>{appointment.title}</h3>
-                                    <p>Time: {appointment.time}</p>
-                                    <p>Location: {appointment.location}</p>
+                                    <h3>{appointment.description}</h3>
+                                    <p>Datum: {new Date(appointment.date).toLocaleDateString('de-DE')}</p>
+                                    <p>Zeit: {new Date(appointment.date).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}</p>
+                                    <p>Ort: {appointment.location}</p>
                                 </div>
                             );
                         })}
