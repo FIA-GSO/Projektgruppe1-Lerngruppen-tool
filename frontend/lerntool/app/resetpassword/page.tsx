@@ -7,7 +7,7 @@ export default function Resetpassword() {
     const router = useRouter();
 
     function resetPassword(email: string) {
-        fetch('http://localhost:3080/resetpassword', {
+        fetch('http://127.0.0.1:8000/resetpassword', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

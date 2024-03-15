@@ -24,7 +24,7 @@ export default function CreateGroup() {
             return;
 
         // Send the group data to the server
-        fetch('http://localhost:3080/creategroup', {
+        fetch('http://127.0.0.1:8000/creategroup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
