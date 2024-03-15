@@ -1,6 +1,7 @@
 "use client"
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import * as bcrypt from 'bcrypt';
 import './register.css';
 
 export default function Register() {
@@ -74,13 +75,15 @@ export default function Register() {
             return;
         }
 
-        async function hashPassword(password: string): Promise<string> {
-            const saltRounds = 10; // The cost factor controls how much time is needed to calculate a single BCrypt hash. The higher the cost factor, the more hashing rounds are done. Increasing the cost factor by 1 doubles the necessary time. The more time is necessary, the more difficult is brute-forcing.
-            const hash = await bcrypt.hash(password, saltRounds);
-            return hash;
-        }
-        
+        hashPassword()
+
         registerUser();
+    }
+
+    function hashPassword() {
+        const saltRounds = 5; // The cost factor controls how much time is needed to calculate a single BCrypt hash. The higher the cost factor, the more hashing rounds are done. Increasing the cost factor by 1 doubles the necessary time. The more time is necessary, the more difficult is brute-forcing.
+        const hash = bcrypt.hash(password, saltRounds);
+        setPassword(hash);
     }
 
     async function registerUser() {
