@@ -15,10 +15,8 @@ export default function ManageGroup({params}: { params: { id: string } }) {
     const router = useRouter();
 
 
-    function EditGroupTitle() {
-    }
+    function SaveGroupInfo() {
 
-    function EditGroupDescription() {
     }
 
     function CheckIfUserIsGroupOwner(): boolean {
@@ -27,15 +25,12 @@ export default function ManageGroup({params}: { params: { id: string } }) {
         if (!usertoken)
             return false;
 
-        fetch('http://localhost:3080/verifyownership', {
+        fetch(`http://localhost:3080/verifyownership/${params.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'jwt-token': usertoken,
             },
-            body: JSON.stringify({
-                groupid: params.id,
-            }),
         })
             .then((r) => r.json())
             .then((r) => {
@@ -43,7 +38,6 @@ export default function ManageGroup({params}: { params: { id: string } }) {
                     setIsOwner(true);
                     return true;
                 }
-
             })
             .catch((e) => {
                 console.error(e);
@@ -81,6 +75,43 @@ export default function ManageGroup({params}: { params: { id: string } }) {
     }
 
     function AddMember() {
+        const email = document.getElementById('memberEmail') as HTMLInputElement;
+        if (!email)
+            return false;
+
+        // check if email is valid
+        if (!email.value.includes('@') || !email.value.includes('.')) {
+            email.value = "";
+            return false;
+        }
+
+        let usertoken = GetUserToken();
+        if (!usertoken)
+            return false;
+
+        fetch('http://localhost:3080/addmember', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'jwt-token': usertoken,
+            },
+            body: JSON.stringify({
+                email: email.value,
+                groupid: params.id,
+            }),
+        })
+            .then((r) => r.json())
+            .then((r) => {
+                if (r.success) {
+                    getGroupInfo();
+                    email.value = "";
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                email.value = "";
+            });
+
     }
 
     function DeleteGroup() {
@@ -183,18 +214,16 @@ export default function ManageGroup({params}: { params: { id: string } }) {
                 <div className="group-administration">
 
                     <div className="editgrouptitle">
-                        <button onClick={EditGroupTitle}>Edit Group Title</button>
-                        <input type="email" name="" id="" value={"Member Email"}/>
-
+                        <label>Edit Group Title</label>
+                        <input type="email" id="grouptitle" value={"Member Email"}/>
                     </div>
                     <div className="editgroupdescription">
-
-                        <button onClick={EditGroupDescription}>Edit Group Description</button>
-                        <input type="email" name="" id="" value={"Member Email"}/>
+                        <label>Edit Group Description</label>
+                        <input type="email" id="groupdescription" value={"Member Email"}/>
 
                     </div>
                         <div className="save action-buttons">
-                            <button onClick={AddMember}>Save</button>
+                            <button onClick={SaveGroupInfo}>Save</button>
                         </div>
                 </div>
 
@@ -218,7 +247,7 @@ export default function ManageGroup({params}: { params: { id: string } }) {
                         <div className='member-input'>
                             <label htmlFor="memberEmail">Enter member E-mail</label>
 
-                            <input type="email" name="" id="memberEmail" value={"Member Email"}/>
+                            <input type="email" id="memberEmail" placeholder="Email"/>
                         </div>
                         <button className="action-buttons" onClick={AddMember}>Add Member</button>
                     </div>

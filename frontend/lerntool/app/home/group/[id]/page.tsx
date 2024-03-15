@@ -57,15 +57,13 @@ export default function Group({ params }: { params: { id: string } }) {
 
         // Use fetch API to verify group ownership, including JWT token in the headers.
 
-        fetch('http://localhost:3080/verifyownership', {
+        fetch(`http://localhost:3080/verifyownership/${params.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'jwt-token': usertoken,
             },
-            body: JSON.stringify({
-                groupid: params.id,
-            }),
+
         })
         .then((r) => r.json())
         .then((r) => {
