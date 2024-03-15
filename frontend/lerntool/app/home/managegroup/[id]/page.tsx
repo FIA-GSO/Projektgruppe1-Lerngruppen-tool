@@ -126,6 +126,7 @@ export default function ManageGroup({params}: { params: { id: string } }) {
             },
             body: JSON.stringify({
                 userid: id,
+                groupid: params.id,
             }),
         })
             .then((r) => r.json())
