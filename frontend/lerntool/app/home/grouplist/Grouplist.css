@@ -1,0 +1,59 @@
+
+.groups {
+}
+
+.title {
+    text-align: center;
+    padding: 1rem;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.grouplist-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    overflow-y: scroll;
+    padding: 0 10px;
+}
+.grouplist-item {
+    width: 100%;
+    margin-bottom: 0.5rem;
+
+    h1{
+        text-align: start;
+        padding: 1rem 0;
+    }
+
+    h3,p {
+        padding: 0.2rem 1rem ;
+    }
+}
+
+.member-count{
+    color: dimgrey;
+    font-size: 14px;
+}
+.btn-to-group {
+    background-color: cornflowerblue;
+    padding: 0.4rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: 0.5rem auto;
+}
+
+
+@media only screen and (min-width: 769px) {
+    .grouplist-container {
+width: 65%;
+        margin: auto;
+    }
+    .btn-to-group{
+        width: 30%;
+    }
+
+}

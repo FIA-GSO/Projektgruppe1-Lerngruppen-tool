@@ -1,0 +1,48 @@
+.title {
+    text-align: center;
+    padding: 1rem;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.mygrouplist-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 200px;
+    overflow-y: scroll;
+    padding: 0 10px;
+
+}
+
+.mygrouplist-item {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.group-action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.btn-to-group {
+    background-color: cornflowerblue;
+    margin: 0.4rem;
+    padding: 0.4rem;
+    border-radius: 10px;
+}
+
+@media only screen and (min-width: 769px) {
+    .mygrouplist-list {
+        height: auto;
+        overflow-y: hidden;
+    }
+    .mygrouplist-container{
+        width: 65%;
+        margin: auto;
+    }
+
+}

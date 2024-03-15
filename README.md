@@ -1,5 +1,4 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/4nMEyho3)
-
+# Lern Gruppen Tool
 
 Git
 
@@ -28,5 +27,4 @@ Best Practices:
 
 Always test code thoroughly in the dev branch before merging it into main.
 Use pull requests for merging, especially for merging into dev and main, as this allows for code review and additional testing.
-Keep your branches up to date with the latest changes from main or dev to minimize merge conflicts.
-
+Keep your branches up to date with the latest changes from main or dev to minimize merge conflicts
