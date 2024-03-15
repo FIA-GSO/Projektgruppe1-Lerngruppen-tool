@@ -4,9 +4,14 @@ import mygroupsMock from "../mockdata/mygroups";
 import "./MyGroups.css";
 import { useRouter } from "next/navigation";
 import IGroupsOfUser from "../Model/IGroupsOfUser";
+import GetUserToken from "../controller/GetUserToken";
+
+// Define the MyGroups component.
 
 export default function MyGroups() {
-    
+
+    // State hooks for managing the groups where the user is an owner and where they are not.
+
     const [ mygroups, setMyGroups ] = useState<IGroupsOfUser[]>();
     const [ othergroups, setOtherGroups ] = useState<IGroupsOfUser[]>();
 
@@ -14,19 +19,19 @@ export default function MyGroups() {
         getUserGroups();
     }, []);
 
-    function getUserGroups() {
-        // ToDo
-        // Get the user token from local storage
-        // const user = JSON.parse(localStorage.getItem('user') ?? '');
-        // if (!user || !user.token) {
-        //     return;
-        // }
+    async function getUserGroups() {
+        
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return;
 
-        fetch('http://localhost:3080/groupsofuser', {
+        // Perform a GET request to fetch the groups of the user.
+
+        await fetch('http://localhost:3080/groupsofuser', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'jwt-token': "user.token",
+                'jwt-token': usertoken,
             },
         })
         .then((r) => r.json())
@@ -54,18 +59,17 @@ export default function MyGroups() {
 
     function leaveGroup(groupid: number) {
 
-        // ToDo
-        // Get the user token from local storage
-        // const user = JSON.parse(localStorage.getItem('user') ?? '');
-        // if (!user || !user.token) {
-        //     return;
-        // }
-        
+        let usertoken = GetUserToken();
+        if (!usertoken) 
+            return;
+
+        // Perform a POST request to leave a group, including the group ID in the request body.
+
         fetch('http://localhost:3080/leavegroup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'jwt-token': "user.token",
+                'jwt-token': usertoken,
             },
             body: JSON.stringify({
                 groupid: groupid,
@@ -92,6 +96,8 @@ export default function MyGroups() {
 function GroupList(params: { groups: IGroupsOfUser[], owner: boolean, leaveGroup: (groupid: number) => void }) {
 
     const router = useRouter();
+    
+    // Render the component UI.
 
     return (
         <div className="groups">
@@ -100,13 +106,15 @@ function GroupList(params: { groups: IGroupsOfUser[], owner: boolean, leaveGroup
                 {params.groups.map((group) => {
                     return (
                         <li className="mygrouplist-item" key={group.id}>
-                            <div>{group.name}</div>
-                            <div>Thema: {group.topic}</div>
+                            <h1>{group.name}</h1>
+                            <h3>Thema: {group.topic}</h3>
+                            <div className="group-action-buttons">
                             <a className="btn-to-group" href={`/home/group/${group.id}`}>Zu Gruppe</a>
                             {params.owner 
                                 ? <button className="btn-to-group" onClick={() => router.push(`/home/managegroup/${group.id}`)} >Verwalten</button>
                                 : <button className="btn-to-group" onClick={() => params.leaveGroup(group.id)} >Gruppe Verlassen</button>
                             }
+                            </div>
                         </li>
                     );
                 })}

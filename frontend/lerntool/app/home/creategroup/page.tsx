@@ -1,11 +1,12 @@
 "use client"
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
 import "./Creategroup.css";
+import GetUserToken from "../controller/GetUserToken";
 
 export default function CreateGroup() {
 
     const router = useRouter();
-    
+
     function createGroup() {
         // Get the group data from the form
         const groupname = document.getElementById('groupname') as HTMLInputElement;
@@ -18,31 +19,27 @@ export default function CreateGroup() {
         const groupprivat = document.getElementById('groupprivat') as HTMLInputElement;
         console.log(groupname.value, groupdescription.value, grouptopic.value, groupmembercount.value, groupprivat.checked, groupstartdate.value, groupenddate.value, grouplocation.value);
 
-        // ToDo
-        // Get the user token from local storage
-        // const user = JSON.parse(localStorage.getItem('user') ?? '');
-        // if (!user || !user.token) {
-        //     return;
-        // }
+        let usertoken = GetUserToken();
+        if (!usertoken)
+            return;
 
         // Send the group data to the server
         fetch('http://localhost:3080/creategroup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'usertoken': "user.token",
-                },
-                body: JSON.stringify({
-                    name: groupname.value,
-                    description: groupdescription.value,
-                    topic: grouptopic.value,
-                    groupstartdate: groupstartdate.value,
-                    groupenddate: groupenddate.value,
-                    maxmember: groupmembercount.value,
-                    location: grouplocation.value,
-                    thisyearonly: groupprivat.checked,
-                }),
-            })
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'usertoken': usertoken,
+            },
+            body: JSON.stringify({
+                name: groupname.value,
+                description: groupdescription.value,
+                topic: grouptopic.value,
+                groupstartdate: groupstartdate.value,
+                groupenddate: groupenddate.value,
+                maxmember: groupmembercount.value,
+                thisyearonly: groupprivat.checked,
+            }),
+        })
             .then((response) => response.json())
             .then((data) => {
                 let groupid = data.groupid;
@@ -50,8 +47,8 @@ export default function CreateGroup() {
                     router.push(`/group/${groupid}`);
                 }
             }).catch((e) => {
-                console.error(e);
-            });
+            console.error(e);
+        });
     }
 
     return (
@@ -60,48 +57,45 @@ export default function CreateGroup() {
             <form className="creategroupform">
                 <div className="formrow">
                     <label htmlFor="groupname">Gruppenname: </label>
-                    <br />
-                    <input type="text" id="groupname" />
+                    <br/>
+                    <input type="text" id="groupname"/>
                 </div>
                 <div className="formrow">
                     <label htmlFor="groupdescription">Gruppenbeschreibung: </label>
-                    <br />
-                    <textarea id="groupdescription" />
+                    <br/>
+                    <textarea id="groupdescription"/>
                 </div>
                 <div className="formrow">
                     <label htmlFor="grouptopic">Gruppenthema: </label>
-                    <br />
-                    <input type="text" id="grouptopic" />
+                    <br/>
+                    <input type="text" id="grouptopic"/>
                 </div>
                 <div className="formrow">
                     <label htmlFor="groupstartdate">Startdatum: </label>
-                    <br />
-                    <input type="date" id="groupstartdate" />
+                    <br/>
+                    <input type="date" id="groupstartdate"/>
                 </div>
                 <div className="formrow">
                     <label htmlFor="groupenddate">Enddatum: </label>
-                    <br />
-                    <input type="date" id="groupenddate" />
-                </div>
-                <div className="formrow">
-                    <label htmlFor="grouplocation">Ort: </label>
-                    <br />
-                    <input type="text" id="grouplocation" />
+                    <br/>
+                    <input type="date" id="groupenddate"/>
                 </div>
                 <div className="formrow">
                     <label htmlFor="groupmembercount">Maximale Schüler: </label>
-                    <br />
-                    <input type="number" id="groupmembercount" />
+                    <br/>
+                    <input type="number" id="groupmembercount"/>
                 </div>
                 <div className="formrow">
-                    <label htmlFor="groupprivat">Nur mein Jahrgang: </label>
-                    <input type="checkbox" id="groupprivat" />
+                    <div className='private-formrow'>
+                        <label htmlFor="groupprivat">Nur mein Jahrgang: </label>
+                        <input type="checkbox" id="groupprivat"/>
+                    </div>
                 </div>
                 <div className="formrow">
-                    <input className="submitbutton" type="button" onClick={createGroup} value="Gruppe erstellen" />
+                    <button className="submitbutton" type="submit" onClick={createGroup} value="erstellen">Submit </button>
                 </div>
             </form>
         </div>
     );
-    
+
 };

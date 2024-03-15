@@ -3,26 +3,47 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function Home() {
-    return (
-        <main className="flex flex-col gap-8 items-center justify-between p-24">
-            <Button route="/login" btnName='Login'/>
-            <Button route="/register" btnName='Register'/>
-        </main>
-    );
-}
 
-function Button(params: {route: string, btnName: string}) {
 
     const router = useRouter();
 
-    const handleClick = () => {
-        router.push(params.route);
-    };
+    useEffect(() => {
+        const userItem = localStorage.getItem('user');
+        if (userItem) {
+            const user = JSON.parse(userItem);
+            if (user && user.token) {
+                ValidToken(user);
+            } else {
+                router.push('/login');
+            }
+        } else {
+            router.push('/login');
+        }
+    }, []); // The empty dependency array ensures this effect runs only once on mount.
+
+    function ValidToken(token: string) {
+        fetch('http://localhost:3080/verify', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'jwt-token': token,
+            },
+        })
+        .then((r) => r.json())
+        .then((r) => {
+            if (r.status === 200) {
+                router.push('/home');
+            } else {
+                router.push('/login');
+            } 
+        })
+        .catch((e) => {
+            console.error(e);
+        });
+    }
 
     return (
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={handleClick}>
-            {params.btnName}
-        </button>
-    )
+        <div>Loading...</div>
+    );
 }
+
