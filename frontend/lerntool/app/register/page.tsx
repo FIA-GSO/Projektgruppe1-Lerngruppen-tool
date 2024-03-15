@@ -45,7 +45,7 @@ export default function Register() {
             return;
         }
 
-        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/.test(email)) {
             setEmailError('Please enter a valid email');
             return;
         }
@@ -78,7 +78,7 @@ export default function Register() {
     }
 
     async function registerUser() {
-        await fetch('http://172.0.0.1:4000/register', {
+        await fetch('http://localhost:5173/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
